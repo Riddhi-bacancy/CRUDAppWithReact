@@ -5,7 +5,8 @@ const user = require('../controllers/users.controller.js');
 const routes = (app) => {
 
   app.post('/user', user.create);
-  app.get('/user', user.list);
+  app.get('/user/', user.list);
+  app.get('/user/:id', user.list);
   app.put('/user/:id', user.edit);
   app.delete('/user/:id', user.delete);
 

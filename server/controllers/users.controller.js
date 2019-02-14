@@ -28,7 +28,12 @@ exports.list = async function(req, res) {
   // } else {
   //   con.order = ['id'];
   // }
-  con.where = { deletedAt: { [db.Sequelize.Op.eq]: null } };
+  if (req.params.id) {
+    con.where = { id: req.params.id, deletedAt: { [db.Sequelize.Op.eq]: null } };
+  } else {
+    con.where = { deletedAt: { [db.Sequelize.Op.eq]: null } };
+  }
+  
   let user;
   try {
     user = await usersApp.findAll(con);

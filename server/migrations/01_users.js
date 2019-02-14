@@ -18,7 +18,7 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       phoneno: {
-        type: Sequelize.INTEGER
+        type: Sequelize.NUMERIC(10)
       },
       deletedAt: {
         type: Sequelize.DATE
