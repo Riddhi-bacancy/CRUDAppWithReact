@@ -16,8 +16,8 @@ export default class Form3 extends Component {
 
           axios.get('http://localhost:3000/user/' + this.props.match.params.id)
           .then(response => {
-            const {firstname, lastname, age, phoneno} = response.data.data[0];
-           this.setState({ fname: firstname, lname:lastname, age, pno:phoneno });
+            const {firstname, lastname, age, phoneno,gender} = response.data.data[0];
+           this.setState({ fname: firstname, lname:lastname, age, pno:phoneno,gender:gender });
            
           })
           .catch(function (error) {
@@ -35,7 +35,7 @@ export default class Form3 extends Component {
         }
         async handleSubmit(e){
             // const user = {...this.state.users}
-            const {fname, lname, age, pno} = this.state;
+            const {fname, lname, age, pno,gender} = this.state;
             e.preventDefault();
         let res;
         try{
@@ -43,7 +43,9 @@ export default class Form3 extends Component {
             firstname:fname,
             lastname:lname,
             age:age,
-            phoneno:pno})
+            phoneno:pno,
+            gender:gender
+        })
         }
         catch(error) {
             console.log(error);
@@ -79,7 +81,15 @@ export default class Form3 extends Component {
                             <label>PhoneNumber:</label>
                             <input type="tel" maxlength='10' minlength='10' className="form-control" id="pno"  onChange = {e => this.editData(e)} name="pno" value={this.state.pno}/>
                         </div>
-                        
+                        <div className="form-group">
+                                <label>Gender:</label>
+                                <select name="gender" onChange={(e) => this.editData(e)} value={this.state.gender} >
+                                    <option value="Male">Male</option>
+                                    <option value="Female">Female</option>
+                                   
+                                   
+                                </select>
+                            </div>
                         <input type="button" className="btn btn-default" onClick = {e => this.handleSubmit(e)} value="Submit"/>
                        
                     </form>

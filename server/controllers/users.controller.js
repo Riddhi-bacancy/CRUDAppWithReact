@@ -21,8 +21,8 @@ exports.create = async function(req, res) {
 };
 exports.list = async function(req, res) {
   const con = {};
-  //con.limit = req.query.limit || 10;
-  //con.offset = req.query.skip || 0;
+  con.limit = req.query.limit || 2;
+  con.offset = req.query.skip || 4;
   // if (req.query.sort !== '' && req.query.sort){
   //   con.order = req.query.sort.split(',').map(col => col.split(':'));
   // } else {
@@ -36,7 +36,7 @@ exports.list = async function(req, res) {
   
   let user;
   try {
-    user = await usersApp.findAll(con);
+    user = await usersApp.findAndCountAll(con);
   } catch (err){
     return res.status(500).json({
       status: false,
@@ -68,7 +68,8 @@ exports.edit = async function(req, res) {
       firstname: req.body.firstname,
       age:req.body.age,
       lastname: req.body.lastname,
-      phoneno:req.body.phoneno
+      phoneno:req.body.phoneno,
+      gender:req.body.gender
     },
     {
       where: { id: userId, deletedAt: { [db.Sequelize.Op.eq]: null } },

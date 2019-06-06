@@ -1,10 +1,11 @@
 const user = require('../controllers/users.controller.js');
+const userValidation = require('../public/validation');
 
 // ----------------Requests Handlers--------------------//
 
 const routes = (app) => {
 
-  app.post('/user', user.create);
+  app.post('/user',userValidation.validationbody, user.create);
   app.get('/user/', user.list);
   app.get('/user/:id', user.list);
   app.put('/user/:id', user.edit);
